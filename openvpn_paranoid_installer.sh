@@ -81,8 +81,8 @@ if [[ -e /etc/openvpn/server.conf ]]; then
 			echo "Please, use one word only, no special characters"
 			read -p "Client name: " -e -i client CLIENT
 			cd /etc/openvpn/easy-rsa/
-			read -p "Key size: " -e -i 4096 KEYSIZE_CLIENT
-			read -p "Use password? " -e -i y USEPASS_CLIENT
+			read -p "Key size (client): " -e -i 4096 KEYSIZE_CLIENT
+			read -p "Use password (client)? " -e -i y USEPASS_CLIENT
 			if [ $USEPASS_CLIENT != "y" ]; then
 				./easyrsa --keysize=$KEYSIZE_CLIENT build-client-full $CLIENT nopass
 			else 
@@ -215,13 +215,20 @@ else
 	./easyrsa init-pki
 	./easyrsa --batch build-ca nopass
 	./easyrsa gen-dh
-	./easyrsa build-server-full server nopass
+	echo ""
+        read -p "Key size (server): " -e -i 4096 KEYSIZE_SERVER
+        read -p "Use password (server)? " -e -i y USEPASS_SERVER
+        if [ $USEPASS_CLIENT != "y" ]; then
+		./easyrsa --keysize=$KEYSIZE_SERVER build-server-full server nopass
+	else
+		./easyrsa --keysize=$KEYSIZE_SERVER build-server-full server
+	fi
 	echo ""
         echo "Finally, tell me your name for the client cert"
         echo "Please, use one word only, no special characters"
         read -p "Client name: " -e -i client CLIENT
-        read -p "Key size for client key: " -e -i 4096 KEYSIZE_CLIENT
-        read -p "Use password for client key? " -e -i y USEPASS_CLIENT
+        read -p "Key size (client): " -e -i 4096 KEYSIZE_CLIENT
+        read -p "Use password (client)? " -e -i y USEPASS_CLIENT
          if [ $USEPASS_CLIENT != "y" ]; then
 	         ./easyrsa --keysize=$KEYSIZE_CLIENT build-client-full $CLIENT nopass
          else
