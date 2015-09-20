@@ -81,7 +81,13 @@ if [[ -e /etc/openvpn/server.conf ]]; then
 			echo "Please, use one word only, no special characters"
 			read -p "Client name: " -e -i client CLIENT
 			cd /etc/openvpn/easy-rsa/
-			./easyrsa build-client-full $CLIENT nopass
+			read -p "Key size: " -e -i 4096 KEYSIZE_CLIENT
+			read -p "Use password? " -e -i y USEPASS_CLIENT
+			if [ $USEPASS_CLIENT != "y" ]; then
+				./easyrsa --keysize=$KEYSIZE_CLIENT build-client-full $CLIENT nopass
+			else 
+				./easyrsa --keysize=$KEYSIZE_CLIENT build-client-full $CLIENT
+			fi
 			# Generates the custom client.ovpn
 			newclient "$CLIENT"
 			echo ""
@@ -183,10 +189,6 @@ else
 	echo "   6) Google"
 	read -p "DNS [1-6]: " -e -i 1 DNS
 	echo ""
-	echo "Finally, tell me your name for the client cert"
-	echo "Please, use one word only, no special characters"
-	read -p "Client name: " -e -i client CLIENT
-	echo ""
 	echo "Okay, that was all I needed. We are ready to setup your OpenVPN server now"
 	read -n1 -r -p "Press any key to continue..."
 		if [[ "$OS" = 'debian' ]]; then
@@ -214,7 +216,17 @@ else
 	./easyrsa --batch build-ca nopass
 	./easyrsa gen-dh
 	./easyrsa build-server-full server nopass
-	./easyrsa build-client-full $CLIENT nopass
+	echo ""
+        echo "Finally, tell me your name for the client cert"
+        echo "Please, use one word only, no special characters"
+        read -p "Client name: " -e -i client CLIENT
+        read -p "Key size for client key: " -e -i 4096 KEYSIZE_CLIENT
+        read -p "Use password for client key? " -e -i y USEPASS_CLIENT
+         if [ $USEPASS_CLIENT != "y" ]; then
+	         ./easyrsa --keysize=$KEYSIZE_CLIENT build-client-full $CLIENT nopass
+         else
+                 ./easyrsa --keysize=$KEYSIZE_CLIENT build-client-full $CLIENT
+         fi
 	./easyrsa gen-crl
 	# Move the stuff we need
 	cp pki/ca.crt pki/private/ca.key pki/dh.pem pki/issued/server.crt pki/private/server.key /etc/openvpn
