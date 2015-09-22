@@ -218,7 +218,7 @@ else
 	echo ""
         read -p "Key size (server): " -e -i 4096 KEYSIZE_SERVER
         read -p "Use password (server)? " -e -i y USEPASS_SERVER
-        if [ $USEPASS_CLIENT != "y" ]; then
+        if [ $USEPASS_SERVER != "y" ]; then
 		./easyrsa --keysize=$KEYSIZE_SERVER build-server-full server nopass
 	else
 		./easyrsa --keysize=$KEYSIZE_SERVER build-server-full server
