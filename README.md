@@ -17,4 +17,12 @@ Once it ends, you can run it again to add more users, remove some of them or eve
 
 ###Donations
 
-If you want to show your appreciation, you can donate via [Bitcoin](http://cryptopunks.org/contacts/). Thanks!
+If you want to show your appreciation, you can donate via Bitcoin:
+
+```
+1NYYFoJiRPnkmFbcv5kYLqwsweix1cVmBT
+17TksSiUcx7Y1JaqigFkiTWaP3LXmSHU3B
+13ba7BxuaG7bGurNxatKAemqRURYKaP5M6
+```
+
+Thanks!
