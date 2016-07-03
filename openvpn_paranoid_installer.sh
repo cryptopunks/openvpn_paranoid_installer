@@ -39,17 +39,23 @@ else
 fi
 
 newclient () {
-	# Generates the custom client.ovpn
-	cp /etc/openvpn/client-common.txt ~/$1.ovpn
-	echo "<ca>" >> ~/$1.ovpn
-	cat /etc/openvpn/easy-rsa/pki/ca.crt >> ~/$1.ovpn
-	echo "</ca>" >> ~/$1.ovpn
-	echo "<cert>" >> ~/$1.ovpn
-	cat /etc/openvpn/easy-rsa/pki/issued/$1.crt >> ~/$1.ovpn
-	echo "</cert>" >> ~/$1.ovpn
-	echo "<key>" >> ~/$1.ovpn
-	cat /etc/openvpn/easy-rsa/pki/private/$1.key >> ~/$1.ovpn
-	echo "</key>" >> ~/$1.ovpn
+        # Generates the custom client.ovpn
+        cp /etc/openvpn/client-common.txt ~/$1.ovpn
+        #echo "<ca>" >> ~/$1.ovpn
+        #cat /etc/openvpn/easy-rsa/pki/ca.crt >> ~/$1.ovpn
+        #echo "</ca>" >> ~/$1.ovpn
+        #echo "<cert>" >> ~/$1.ovpn
+        #cat /etc/openvpn/easy-rsa/pki/issued/$1.crt >> ~/$1.ovpn
+        #echo "</cert>" >> ~/$1.ovpn
+        #echo "<key>" >> ~/$1.ovpn
+        #cat /etc/openvpn/easy-rsa/pki/private/$1.key >> ~/$1.ovpn
+        #echo "</key>" >> ~/$1.ovpn
+        openssl pkcs12 -export \
+                -in  /etc/openvpn/easy-rsa/pki/issued/$1.crt \
+                -inkey /etc/openvpn/easy-rsa/pki/private/$1.key \
+                -certfile /etc/openvpn/easy-rsa/pki/ca.crt \
+                -out ~/$1.p12
+        echo "pkcs12 $.p12" >> ~/$1.ovpn
 }
 
 
