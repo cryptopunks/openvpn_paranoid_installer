@@ -206,7 +206,8 @@ else
 	# Get easy-rsa
 	wget --no-check-certificate -O ~/EasyRSA-3.0.0.tgz https://github.com/OpenVPN/easy-rsa/releases/download/3.0.0/EasyRSA-3.0.0.tgz
 	tar xzf ~/EasyRSA-3.0.0.tgz -C ~/
-	mv ~/EasyRSA-3.0.0 /etc/openvpn/
+	mkdir /etc/openvpn
+	mv -t /etc/openvpn/ ~/EasyRSA-3.0.0
 	mv /etc/openvpn/EasyRSA-3.0.0 /etc/openvpn/easy-rsa
 	chown -R root:root /etc/openvpn/easy-rsa/
 	rm -rf ~/EasyRSA-3.0.0.tgz
