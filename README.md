@@ -24,7 +24,7 @@ If you want to show your appreciation, you can donate:
 1NYYFoJiRPnkmFbcv5kYLqwsweix1cVmBT
 ```
 
-(paypal)
+(paypal)<br>
 mathematics1688@gmail.com
 
 Thanks!
