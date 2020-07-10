@@ -249,7 +249,8 @@ else
 	# Create the PKI, set up the CA and the server and client certificates
 	./easyrsa init-pki
 	./easyrsa --batch build-ca nopass
-  ./easyrsa gen-dh
+  #./easyrsa gen-dh
+  openssl dhparam -out /etc/openvpn/dh.pem 1024
 	echo ""
     read -p "Key size (server): " -e -i 4096 KEYSIZE_SERVER
     read -p "Use password (server)? " -e -i y USEPASS_SERVER
@@ -268,7 +269,7 @@ else
 	fi
 	EASYRSA_CRL_DAYS=3650 ./easyrsa gen-crl
 	# Move the stuff we need
-	cp pki/dh.pem pki/ca.crt pki/private/ca.key pki/issued/server.crt pki/private/server.key pki/crl.pem /etc/openvpn
+	cp pki/ca.crt pki/private/ca.key pki/issued/server.crt pki/private/server.key pki/crl.pem /etc/openvpn
 	# CRL is read with each client connection, when OpenVPN is dropped to nobody
 	chown nobody:$GROUPNAME /etc/openvpn/crl.pem
 	# Generate key for tls-auth
