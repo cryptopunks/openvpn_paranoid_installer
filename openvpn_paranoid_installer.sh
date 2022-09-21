@@ -250,7 +250,7 @@ else
 	./easyrsa init-pki
 	./easyrsa --batch build-ca nopass
   #./easyrsa gen-dh
-  openssl dhparam -out /etc/openvpn/dh.pem 1024
+  openssl dhparam -out /etc/openvpn/dh.pem 4096
 	echo ""
     read -p "Key size (server): " -e -i 4096 KEYSIZE_SERVER
     read -p "Use password (server)? " -e -i y USEPASS_SERVER
@@ -280,12 +280,12 @@ proto $PROTOCOL
 dev tun
 sndbuf 0
 rcvbuf 0
-ca ca.crt
-cert server.crt
-key server.key
-dh dh.pem
+ca /etc/openvpn/ca.crt
+cert /etc/openvpn/server.crt
+key /etc/openvpn/server.key
+dh /etc/openvpn/dh.pem
 auth SHA512
-tls-auth ta.key 0
+tls-auth /etc/openvpn/ta.key 0
 topology subnet
 server 10.8.0.0 255.255.255.0
 ifconfig-pool-persist ipp.txt" > /etc/openvpn/server.conf
