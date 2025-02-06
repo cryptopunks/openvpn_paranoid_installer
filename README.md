@@ -21,10 +21,7 @@ If you want to show your appreciation, you can donate:
 
 (bitcoin)
 ```
-1NYYFoJiRPnkmFbcv5kYLqwsweix1cVmBT
+bc1qs7v6vfp0xpe2slcpwlhftdeqj2w92r3pkykjn6
 ```
-
-(paypal)<br>
-mathematics1688@gmail.com
 
 Thanks!
