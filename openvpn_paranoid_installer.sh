@@ -12,8 +12,7 @@
 
 ##
 # Donate:
-# 1NYYFoJiRPnkmFbcv5kYLqwsweix1cVmBT (bitcoin)
-# mathematics1688@gmail.com (paypal)
+# bc1qs7v6vfp0xpe2slcpwlhftdeqj2w92r3pkykjn6 (bitcoin)
 ##
 
 ##
